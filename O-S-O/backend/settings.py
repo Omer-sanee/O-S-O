@@ -138,4 +138,20 @@ EMAIL_HOST_USER = "Omersanee470@gmail.com"  # your Gmail
 EMAIL_HOST_PASSWORD = "grol ltvs odor kqwg"  # your app password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+import os
+import dj_database_url
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Whitenoise don serving static files
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+
+# Database don Render (override SQLite idan ENV var akwai)
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES["default"] = dj_database_url.parse(DATABASE_URL)

@@ -30,7 +30,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "192.168.0.101",
     ".ngrok-free.app",
-    "onrender.com",
+    ".onrender.com",  # the leading dot allows any subdomain
 ]
 
 
@@ -155,3 +155,4 @@ MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if DATABASE_URL:
     DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
+

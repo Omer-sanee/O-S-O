@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from .models import UserProfile
+import json
 import os
 import redis
 
@@ -187,5 +188,6 @@ def save_profile(request):
         return JsonResponse({"error": "User not found"}, status=404)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
 

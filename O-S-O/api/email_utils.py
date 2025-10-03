@@ -1,6 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from datetime import datetime
+import json
 import redis
 import random
 
@@ -400,4 +401,5 @@ def verify_otp(email, submitted_otp):
     redis_client.delete(f'otp:{email}')
     redis_client.delete(f'phone:{email}')
     
+
     return {'message': 'OTP verified successfully'}, 200

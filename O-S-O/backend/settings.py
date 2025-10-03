@@ -156,3 +156,27 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 if DATABASE_URL:
     DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
 
+# =========================
+# REDIS CONFIGURATION
+# =========================
+import os
+
+REDIS_URL = os.environ.get(
+    "REDIS_URL",
+    "redis://default:XhoXoGCKCeD9QJyuMn8YFZ02VglabJaJ@redis-10063.c89.us-east-1-3.ec2.redns.redis-cloud.com:10063"  # fallback if env not found
+)
+
+print("DEBUG >>> Using Redis URL:", REDIS_URL)  # check in Render logs
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": REDIS_URL,
+    }
+}
+
+# Example: use Redis for sessions
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+

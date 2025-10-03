@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     "192.168.0.101",
     ".ngrok-free.app",
     ".onrender.com",  # the leading dot allows any subdomain
+    "o-s-o-1.onrender.com",
 ]
 
 
@@ -138,7 +139,12 @@ EMAIL_HOST_USER = "Omersanee470@gmail.com"  # your Gmail
 EMAIL_HOST_PASSWORD = "grol ltvs odor kqwg"  # your app password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:19006",      # Expo web preview
+    "http://127.0.0.1:19006",
+    "http://192.168.0.101:19006",  # your LAN IP for testing on phone
+    "https://o-s-o-1.onrender.com" # your Render backend
+]
 CORS_ALLOW_ALL_ORIGINS = True
 
 import os
@@ -178,5 +184,6 @@ CACHES = {
 # Example: use Redis for sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
 
 

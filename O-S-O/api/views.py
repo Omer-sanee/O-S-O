@@ -4,16 +4,25 @@ from .email_utils import send_otp_email, generate_otp  # ✅ add thisfrom django
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-import json, random, redis
 from django.contrib.auth.models import User
 from .models import UserProfile
-import redis
 import os
+import redis
 
-# Use the environment variable REDIS_URL from Render
-REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+# Use REDIS_URL from environment or fallback to localhost
+REDIS_URL = os.environ.get(
+    "REDIS_URL",
+    "redis://localhost:6379"  # fallback for local dev
+)
+
+# Create Redis client
 redis_client = redis.from_url(REDIS_URL)
 
+# Optional: Test connection
+try:
+    print("✅ Redis connected:", redis_client.ping())
+except Exception as e:
+    print("❌ Redis connection failed:", e)
 # Redis connection
 @csrf_exempt
 @require_POST
@@ -178,4 +187,5 @@ def save_profile(request):
         return JsonResponse({"error": "User not found"}, status=404)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
